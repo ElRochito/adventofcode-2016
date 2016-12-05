@@ -31,7 +31,7 @@ do
 done < "$filename"
 
 directions=$(echo $name | tr ", " "\n")
-positions=()
+echo "" > positions.txt
 
 for dir in $directions
 do
@@ -62,19 +62,17 @@ do
             tmpX=`expr $tmpX + $dirX`
 
             position=$tmpX+$y
-
-            for pos in $positions
-            do
-                if [ $position == $pos ]; then
+            
+            for line in $(cat positions.txt); do
+                if [ "$position" == "$line" ]; then
                     find=1
-                    break
                 fi
             done
-            
-            echo $find
 
-            if [ $find = "1" ]; then
-                positions=(${positions[@]} $position)
+            if [ $find != "1" ]; then
+                echo $position >> positions.txt
+            else
+                break 2
             fi
         done
     else
@@ -95,16 +93,16 @@ do
             
             position=$x+$tmpY
 
-            for pos in $positions
-            do
-                if [ "$position" == "$pos" ]; then
-                    find="1"
-                    break
+            for line in $(cat positions.txt); do
+                if [ $position == $line ]; then
+                    find=1
                 fi
             done
-
-            if [ $find = "1" ]; then
-                positions=(${positions[@]} $position)
+            
+            if [ $find != "1" ]; then
+                echo $position >> positions.txt
+            else
+                break 2
             fi
         done
     fi

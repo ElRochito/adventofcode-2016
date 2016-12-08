@@ -10,7 +10,7 @@ foreach ($lines as $triangle) {
     $values = $numbers[0];
     sort($values);
 
-    if ((int) $values[0] + (int) $values[1] > (int) $values[2]) {
+    if ((int)$values[0] + (int)$values[1] > (int)$values[2]) {
         $nb_triangles++;
     }
 }

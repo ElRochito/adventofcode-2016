@@ -8,9 +8,11 @@ foreach ($lines as $triangle) {
     preg_match_all("(\d+)", $triangle, $numbers);
 
     $values = $numbers[0];
+    $values = array_map("intval", $values);
+    
     sort($values);
 
-    if ((int)$values[0] + (int)$values[1] > (int)$values[2]) {
+    if ($values[0] + $values[1] > $values[2]) {
         $nb_triangles++;
     }
 }
